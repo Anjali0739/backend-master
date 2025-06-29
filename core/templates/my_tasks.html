@@ -1,0 +1,37 @@
+<h1>My Tasks</h1>
+
+<h1>Incomplete Tasks</h1>
+{% if incomplete_tasks %}
+  <ul>
+    {% for task in incomplete_tasks %}
+      <li>
+        <strong>{{ task.title }}</strong>
+        <a href="{% url 'complete_task' task.id %}">✔ Mark as done</a>
+        <a href="{% url 'delete_task' task.id %}" onclick="return confirm('Are you sure you want to delete this task?')">🗑 Delete</a>
+        <p>{{ task.description }}</p>
+        <small>Created: {{ task.created_at }}</small>
+      </li>
+      <hr>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No pending tasks!</p>
+{% endif %}
+
+<h1>Completed Tasks</h1>
+{% if completed_tasks %}
+  <ul>
+    {% for task in completed_tasks %}
+      <li>
+        <strong>{{ task.title }}</strong>
+        <em>(Completed)</em>
+        <a href="{% url 'delete_task' task.id %}" onclick="return confirm('Are you sure you want to delete this task?')">🗑 Delete</a>
+        <p>{{ task.description }}</p>
+        <small>Created: {{ task.created_at }}</small>
+      </li>
+      <hr>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No completed tasks yet.</p>
+{% endif %}
